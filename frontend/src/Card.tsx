@@ -1,15 +1,19 @@
 import React, {useEffect, useState} from 'react';
+import axios from "axios";
+import Gallery from "./Gallery";
 
 
 type TaskCard = {
-    "description": string
-    "status": string
-    "id": string
+    description: string
+    status: string
+    id: string
+    getTasks: () => void
 }
 
+
 function Card(props:TaskCard) {
-    const [task, setTask] = useState<TaskCard[]>([])
-    function showDetails(props:TaskCard) {
+
+    function showDetails() {
 
     }
 
@@ -18,21 +22,38 @@ function Card(props:TaskCard) {
     }
 
     function deleteTask() {
-
+        axios.delete("/api/todo/" + props.id)
+            .then(props.getTasks)
     }
 
     function changeStatus() {
-
+            if (props.status === "OPEN") {
+                axios.put("api/todo/"+ props.id, {
+                    id: props.id,
+                    description: props.description,
+                    status: "IN_PROGRESS"
+                })
+                    .then(props.getTasks)
+            } else {
+                axios.put("api/todo/"+ props.id, {
+                    id: props.id,
+                    description: props.description,
+                    status: "DONE"
+                })
+                    .then(props.getTasks)
+            }
     }
+
 
     return (
         <div>
             <h2>
             {props.description}
+                {props.status}
             </h2>
             <button>details</button>
             <button onClick={showEditPage}>edit</button>
-            {props.status === "Done"? <button onClick={deleteTask}>delete</button> : <button onClick={changeStatus}>next</button>}
+            {props.status === "DONE"? <button onClick={deleteTask}>delete</button> : <button onClick={changeStatus}>next Stage</button>}
 
         </div>
     );
