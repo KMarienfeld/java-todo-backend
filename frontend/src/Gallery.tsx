@@ -28,14 +28,15 @@ function Gallery() {
 
     function useTextInput(event: ChangeEvent<HTMLInputElement>) {
         setInputDescription(event.target.value)
-
     }
 
     return (
         <div>
+        <div>
             <input type="text" value={inputDescription} placeholder="Add a new Task" onChange={useTextInput}/>
-            <button onClick={addNewTask}>add</button>
+            <button type="button" className="btn btn-light btn-sm" onClick={addNewTask}>add</button>
             {allTasks.map((task) => <Card key={task.id} description={task.description} status={task.status} id={task.id} getTasks={getTasks}/>)}
+        </div>
         </div>
     );
 }

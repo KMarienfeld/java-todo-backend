@@ -53,9 +53,9 @@ function Card(props:TaskCard) {
                 <h2>
                 {props.description}
                 </h2>
-                <button>details</button>
-                <button onClick={showEditPage}>edit</button>
-                {props.status === "DONE"? <button onClick={deleteTask}>delete</button> : <button onClick={changeStatus}>next Stage</button>}
+                <button type="button" className="btn btn-secondary btn-sm">details</button>
+                <button type="button" className="btn btn-secondary btn-sm" onClick={showEditPage}>edit</button>
+                {props.status === "DONE"? <button type="button" className="btn btn-danger btn-sm" onClick={deleteTask}>delete</button> : <button type="button" className="btn btn-secondary btn-sm" onClick={changeStatus}>next Stage</button>}
             </div>
         </div>
     );
