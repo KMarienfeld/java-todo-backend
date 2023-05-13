@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import Gallery from "./Gallery";
+import "./Card.css"
+
 
 
 type TaskCard = {
@@ -46,15 +48,15 @@ function Card(props:TaskCard) {
 
 
     return (
-        <div>
-            <h2>
-            {props.description}
-                {props.status}
-            </h2>
-            <button>details</button>
-            <button onClick={showEditPage}>edit</button>
-            {props.status === "DONE"? <button onClick={deleteTask}>delete</button> : <button onClick={changeStatus}>next Stage</button>}
-
+        <div className="cards" >
+            <div className= {props.status === "OPEN"? "open" : props.status === "IN_PROGRESS"? "doing" : "done"}>
+                <h2>
+                {props.description}
+                </h2>
+                <button>details</button>
+                <button onClick={showEditPage}>edit</button>
+                {props.status === "DONE"? <button onClick={deleteTask}>delete</button> : <button onClick={changeStatus}>next Stage</button>}
+            </div>
         </div>
     );
 }
